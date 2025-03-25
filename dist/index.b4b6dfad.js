@@ -18878,46 +18878,33 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            id: 1,
-            Title: "Inception",
-            Description: "Dom Cobb (Leonardo DiCaprio) is a skilled thief who can enter people's dreams and steal their secrets from their subconscious. His talents have made him a valuable asset in corporate espionage but have also cost him everything he loves. Given a chance at redemption, Cobb and his team must pull off the impossible: planting an idea in someone's mind\u2014a process known as inception. As they navigate the dream world's layers, reality blurs, and Cobb must confront his past before it consumes him.",
-            Director: "Christopher Nolan",
-            Genre: "Sci-Fi",
-            ImagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmaTHAbTa2MTEGM_PwqBU61jEzjEcQfx-Zb39fyctMdZheq2Uj"
-        },
-        {
-            id: 2,
-            Title: "Jurassic Park",
-            Description: "When billionaire entrepreneur John Hammond (Richard Attenborough) creates a revolutionary theme park featuring cloned dinosaurs, he invites a group of scientists and his grandchildren to tour the facility. However, what begins as a breathtaking wonder quickly turns into a fight for survival when the park's security systems fail, and the prehistoric creatures break loose.",
-            Director: "Steven Spielberg",
-            Genre: "Thriller",
-            ImagePath: "https://upload.wikimedia.org/wikipedia/en/e/e7/Jurassic_Park_poster.jpg"
-        },
-        {
-            id: 3,
-            Title: "Interstellar",
-            Description: "In a near-future Earth plagued by environmental collapse and food shortages, former pilot and engineer Cooper (Matthew McConaughey) is recruited for a daring space mission. Alongside a team of scientists, including Dr. Brand (Anne Hathaway), he travels through a wormhole searching for a habitable planet for humanity's survival. The mission tests their limits as they explore uncharted worlds, forcing Cooper to choose between saving humanity and seeing his children again.",
-            Director: "Christopher Nolan",
-            Genre: "Sci-Fi",
-            ImagePath: "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    (0, _react.useEffect)(()=>{
+        const fetchMovies = async ()=>{
+            try {
+                const response = await fetch("https://my-flix1-a5a1dc031ab1.herokuapp.com/movies");
+                const data = await response.json();
+                setMovies(data);
+            } catch (error) {
+                console.error("Error fetching movies:", error);
+            }
+        };
+        fetchMovies();
+    }, []);
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 37,
+        lineNumber: 25,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 42,
+        lineNumber: 30,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -18926,18 +18913,18 @@ const MainView = ()=>{
                 onMovieClick: (newSelectedMovie)=>{
                     setSelectedMovie(newSelectedMovie);
                 }
-            }, movie.id, false, {
+            }, movie._id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 48,
+                lineNumber: 36,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 46,
+        lineNumber: 34,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "7gBQ01PRoQzHaME5q17ZPUf/jQg=");
+_s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -19068,7 +19055,7 @@ const MovieView = ({ movie, onBackClick })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.Genre
+                        children: movie.Genre.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 13,
@@ -19090,7 +19077,7 @@ const MovieView = ({ movie, onBackClick })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.Director
+                        children: movie.Director.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 17,
