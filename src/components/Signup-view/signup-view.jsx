@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../../index.scss";
 
 export const SignupView = () => {
   const [Username, setUsername] = useState("");
@@ -72,7 +73,7 @@ export const SignupView = () => {
           required
         />
       </label>
-      <button type="submit">Sign-up</button>
+      <button className="btn-primary" type="submit">Sign-up</button>
     </form>
   );
 };

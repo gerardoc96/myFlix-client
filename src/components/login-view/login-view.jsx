@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "../../index.scss";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -59,7 +60,7 @@ export const LoginView = ({ onLoggedIn }) => {
           required
         />
       </label>
-      <button type="submit">Submit</button>
+      <button className="btn-primary" type="submit">Submit</button>
     </form>
   );
 };

@@ -13202,4 +13202,17 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.btn-primary {
+  color: #f5f5f5;
+  background-color: #1e90ff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+
+.img-primary {
+  max-width: 100%;
+  height: auto;
+}
 /*# sourceMappingURL=index.2212206d.css.map */
