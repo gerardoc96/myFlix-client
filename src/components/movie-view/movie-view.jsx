@@ -1,29 +1,19 @@
 import PropTypes from "prop-types";
+import { Button, Card } from "react-bootstrap";
+import "../../index.scss";
 
 export const MovieView = ({ movie, onBackClick }) => {
   return (
-    <div>
-      <div>
-        <img src={movie.ImagePath} />
-      </div>
-      <div>
-        <span>Title: </span>
-        <span>{movie.Title}</span>
-      </div>
-      <div>
-        <span>Genre: </span>
-        <span>{movie.Genre.Name}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{movie.Director.Name}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{movie.Description}</span>
-      </div>
-      <button onClick={onBackClick}>Back</button>
-    </div>
+    <Card>
+      <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
+      <Card.Body>
+        <Card.Title>Title: {movie.Title}</Card.Title>
+        <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
+        <Card.Text>Director: {movie.Director.Name}</Card.Text>
+        <Card.Text>Description: {movie.Description}</Card.Text>
+        <Button onClick={onBackClick} variant="primary" className="btn-primary">Back</Button>
+      </Card.Body>
+    </Card>
   );
 };
 
