@@ -6,12 +6,12 @@ import "../../index.scss";
 
 export const MovieCard = ({ movie }) => {
   return (
-    <Card className="h-100">
-      <Card.Img className="img-primary" variant="top" src={movie.ImagePath} />
-      <Card.Body>
+    <Card>
+      <Card.Body className="text-center">
+        <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} className="img-primary" />
         <Card.Title>{movie.Title}</Card.Title>
         <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-          <Button variant="link">Read More</Button>
+          <Button className="btn-primary">Read More</Button>
         </Link>
       </Card.Body>
     </Card>

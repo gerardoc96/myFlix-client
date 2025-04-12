@@ -8,9 +8,9 @@ export const MovieView = ({ movies }) => {
   const movie = movies.find((m) => m._id === movieId);
 
   return (
-    <Card>
-      <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
-      <Card.Body>
+    <Card >
+      <Card.Body className="text-center">
+        <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} className="img-primary" />
         <Card.Title>Title: {movie.Title}</Card.Title>
         <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
         <Card.Text>Director: {movie.Director.Name}</Card.Text>

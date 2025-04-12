@@ -13212,7 +13212,7 @@ textarea.form-control-lg {
 }
 
 .img-primary {
-  object-fit: cover;
-  height: 300px;
+  object-fit: contain;
+  height: 600px;
 }
 /*# sourceMappingURL=index.2212206d.css.map */
