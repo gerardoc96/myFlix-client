@@ -1,5 +1,14 @@
-$color: steelblue;
+@import '~bootstrap/scss/bootstrap.scss';
 
-.my-flix {
-  color: $color;
+.btn-primary {
+  padding: 4px 12px 4px 12px;
+  color: whitesmoke;
+  background-color: rgb(30, 64, 255);
+  border: none;
+  border-radius: 5px;
+}
+
+.img-primary {
+  height: 300px;
+  object-fit: cover;
 }
