@@ -18,7 +18,6 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [movies, setMovies] = useState([]);
 
-
   useEffect(() => {
     const fetchMovies = async () => {
       if (!token) {
