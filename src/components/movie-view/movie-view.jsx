@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import { useParams, Link } from "react-router";
 import { Button, Card } from "react-bootstrap";
 import { useState } from "react";
+import { FavoriteButton } from "../Favorite button/FavoriteButton";
 import "../../index.scss";
 
-export const MovieView = ({ movies }) => {
+export const MovieView = ({ user, token, movies, onFavoriteToggle }) => {
   const { movieId } = useParams();
   const movie = movies.find((m) => m._id === movieId);
 
@@ -72,6 +73,11 @@ export const MovieView = ({ movies }) => {
         <Link to={`/`}>
           <Button className="btn-primary">Back</Button>
         </Link>
+        <FavoriteButton
+          movieId={movie._id}
+          user={user}
+          token={token}
+          onFavoriteToggle={onFavoriteToggle} />
       </Card.Body>
     </Card>
   );

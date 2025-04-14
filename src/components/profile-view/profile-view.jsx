@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Card, ListGroup, Spinner, Alert, Button } from 'react-bootstrap';
-import { Link } from "react-router";
+import { FavoriteButton } from "../Favorite button/FavoriteButton";
+import { Link } from 'react-router';
 
-export function ProfileView({ user, onLoggedOut }) {
+export function ProfileView({ user, token, movies, onFavoriteToggle }) {
   const [userData, setUserData] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ export function ProfileView({ user, onLoggedOut }) {
 
         const data = await response.json();
         setUserData(data);
-        setFavorites(data.favorites || []);
+        setFavorites(data.FavoriteMovies || []);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -71,9 +72,6 @@ export function ProfileView({ user, onLoggedOut }) {
             </ListGroup.Item>
             <ListGroup.Item>
               <strong>Password:</strong> ••••••••{' '}
-              <Button variant="link" size="sm">
-                Change Password
-              </Button>
             </ListGroup.Item>
             <ListGroup.Item>
               <strong>Birthday:</strong>{' '}
@@ -86,11 +84,27 @@ export function ProfileView({ user, onLoggedOut }) {
           <Card.Title className="mt-4">Favorites</Card.Title>
           {favorites.length > 0 ? (
             <ListGroup>
-              {favorites.map((item, index) => (
-                <ListGroup.Item key={index}>
-                  {item.name || item} {/* Adjust based on your favorites data structure */}
-                </ListGroup.Item>
-              ))}
+              {favorites.map((movieId) => {
+                const favmovies = movies.find((m) => m._id === movieId);
+                return (
+                  <ListGroup.Item key={movieId} className="d-flex justify-content-between align-items-center">
+                    <Link to={`/movies/${encodeURIComponent(movieId)}`}>
+                      <Button className='btn-primary'>
+                        {favmovies ? favmovies.Title : 'Movie not found'}
+                      </Button>
+                    </Link>
+                    {favmovies && (
+                      <FavoriteButton
+                        movieId={favmovies._id}
+                        user={user}
+                        token={token}
+                        onFavoriteToggle={onFavoriteToggle}
+                      />
+                    )}
+                  </ListGroup.Item>
+                );
+
+              })}
             </ListGroup>
           ) : (
             <Card.Text className="text-muted">
@@ -102,7 +116,6 @@ export function ProfileView({ user, onLoggedOut }) {
           <Button variant="primary" className="me-2">
             Edit Profile
           </Button>
-          <Button variant="outline-secondary">Add Favorite</Button>
         </Card.Footer>
       </Card>
     </Container>

@@ -37,12 +37,26 @@ export const MainView = () => {
     fetchMovies();
   }, [token]);
 
+  const handleFavoriteToggle = (movieId, isAdding) => {
+    setUser((prevUser) => {
+      const updatedFavorites = isAdding
+        ? [...(prevUser.FavoriteMovies || []), movieId]
+        : (prevUser.FavoriteMovies || []).filter((id) => id !== movieId);
+      const updatedUser = { ...prevUser, FavoriteMovies: updatedFavorites };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      return updatedUser;
+    });
+  };
+
   return (
     <BrowserRouter>
       <NavigationBar
         user={user}
         onLoggedOut={() => {
           setUser(null);
+          setToken(null);
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
         }} />
       <Row className="justify-content-md-center">
         <Routes>
@@ -68,7 +82,11 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                    <LoginView
+                      onLoggedIn={(user) => {
+                        setUser(user);
+                        setToken(token);
+                      }} />
                   </Col>
                 )}
               </>
@@ -84,7 +102,11 @@ export const MainView = () => {
                   <Col>The list is empty</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView
+                      movies={movies}
+                      user={user}
+                      token={token}
+                      onFavoriteToggle={handleFavoriteToggle} />
                   </Col>
                 )}
               </>
@@ -103,7 +125,11 @@ export const MainView = () => {
                     {movies.map((movie) => (
                       <Col className="mb-5" key={movie._id} md={4}>
                         <MovieCard
-                          movie={movie} />
+                          movie={movie}
+                          user={user}
+                          token={token}
+                          onFavoriteToggle={handleFavoriteToggle}
+                        />
                       </Col>
                     ))}
                   </>
@@ -119,7 +145,12 @@ export const MainView = () => {
                   <Navigate to="/login" replace />
                 ) : (
                   <Col md={8}>
-                    <ProfileView user={user} token={token} setUser={setUser} />
+                    <ProfileView
+                      user={user}
+                      token={token}
+                      movies={movies}
+                      onFavoriteToggle={handleFavoriteToggle}
+                    />
                   </Col>
                 )}
               </>
