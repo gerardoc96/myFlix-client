@@ -8,7 +8,15 @@
   border-radius: 5px;
 }
 
+.btn-favorite {
+  padding: 4px 12px 4px 12px;
+  color: whitesmoke;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
 .img-primary {
-  height: 300px;
-  object-fit: cover;
+  height: 500px;
+  object-fit: contain;
 }
